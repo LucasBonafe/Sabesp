@@ -348,8 +348,9 @@ function NA($NA_Represas, $Local1, $Local2, $spreadsheet){
         $Rol = array_map('array_filter', $Rol);//Remove elementos vazios
         $Rol = array_filter($Rol);//de meses que possuem menos de 31 dias
         $spreadsheet->getActiveSheet()->fromArray($Rol, null, $Local1);
-        //$Rol2 = sort($Rol, SORT_NUMERIC);
-        $spreadsheet->getActiveSheet()->fromArray($Rol, null, $Local2);
+        $Rol2 = $Rol;
+        sort($Rol2);//Ordenando o $Rol2
+        $spreadsheet->getActiveSheet()->fromArray($Rol2, null, $Local2);
     }
 
 NA($Datas, 'W7', 'W7', $spreadsheet);
@@ -473,7 +474,7 @@ $spreadsheet->getActiveSheet()->getStyle($R[3].':'.$R[4])->getFont()->getColor()
 
 
 /*header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header("Content-Disposition: attachment;filename=$Ano.xlsx");
+header("Content-Disposition: attachment;filename=$Tri[0]$Ano.xlsx");
 header('Cache-Control: max-age=0');
 
 $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
