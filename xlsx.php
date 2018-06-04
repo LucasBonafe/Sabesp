@@ -20,7 +20,8 @@ function Get_Tabela($mes,$ano){//Gerará a variável $tabela
 }
 
 function Get_Dados($tabela){//Gerará a variável $dados
-    $tuplas= explode('</tr><tr></tupla>', $tabela);
+    $Tuplas= explode('</tr><tr></tupla>', $tabela);
+    $tuplas= str_replace(',', '.', $Tuplas);
     //print_r($tuplas);
     foreach ($tuplas as $tupla){
         @$dados= multiexplode(array('<td>','</td><td>','</td></tupla>'), $tupla);
@@ -44,7 +45,7 @@ function CSV($nome, $cabecalho, $dados){//Gera o arquivo CSV para Download
     fclose($saida);
 }
 
-function Baixar_Tabelas($anoInicial, $anoFinal){//Gera CSV's em massa EXPERIMENTAL
+/*function Baixar_Tabelas($anoInicial, $anoFinal){//Gera CSV's em massa EXPERIMENTAL
     ini_set('max_execution_time', 0); //300 segundos = 5 minutos e 0=Sem limite
     $anos= range($anoInicial,$anoFinal); //$anos= array(2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018);
     $meses= range(1,12); //$meses= array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
@@ -58,7 +59,7 @@ function Baixar_Tabelas($anoInicial, $anoFinal){//Gera CSV's em massa EXPERIMENT
             CSV($data, $cabecalho, $dados);
         }
     }
-}//Baixar_Tabelas(2004,2018);
+}//Baixar_Tabelas(2004,2018);*/
 
 
 $Mes= $_POST['Mes'];
@@ -166,21 +167,30 @@ foreach ($TiMess as $TiMes){//Tamanho/Orientação dos Títulos Mês
 
 $Tudos= array('A5:U37', 'A41:U73', 'A77:U109','W5:AG99');//Tabela inteira
 $Titulos= array('A5:U6','A41:U42','A77:U78','W5:AG6');//Somente títulos
-$Celulas= array('B7:U37','B43:U73','B79:U109');//Somente dados
+$Celulas= array('B7:U37','B43:U73','B79:U109','X7:AG99');//Somente dados
 
-$Datas= array('A7:A37','A43:A73','A79:A109');
+$Datas= array('A7:A37','A43:A73','A79:A109','W7:W99');
 
-$Jaguaris= array('B5:D37', 'B41:D70', 'B77:D109');
-$Cachoeiras= array('E5:G37','E41:G70','E77:G109');
-$Atibainhas= array('H5:J37','H41:J70','H77:J109');
-$PaivaCastros= array('K5:M37','K41:M70','K77:M109');
-$AguasClarass= array('N5:P37','N41:P70','N77:P109');
+$Jaguaris= array('B5:D37', 'B41:D73', 'B77:D109','X5:Y99','X103:Y134');
+$TJaguaris= array('B5:D6','B41:D42','B77:D78','X5:Y6');//Títulos
 
-$F25Bts= array('Q5:Q37','Q41:Q70','Q77:Q109');
-$QT7s= array('R5:R37','R41:R70','R77:R109');
-$QT6s= array('S5:S37','S41:S70','S77:S109');
-$QT5s= array('T5:T37','T41:T70','T77:T109');
-$QESIs= array('U5:U37','U41:U70','U77:U109');
+$Cachoeiras= array('E5:G37','E41:G73','E77:G109','Z5:AA99','Z103:AA134');
+$TCachoeiras= array('E5:G6','E41:G42','E77:G78','Z5:AA6');//Títulos
+
+$Atibainhas= array('H5:J37','H41:J73','H77:J109','AB5:AC99','AB103:AC134');
+$TAtibainhas= array('H5:J6','H41:J42','H77:J78','AB5:AC6');//Títulos
+
+$PaivaCastros= array('K5:M37','K41:M73','K77:M109','AD5:AE99','AD103:AE134');
+$TPaivaCastros= array('K5:M6','K41:M42','K77:M78','AD5:AE6');//Títulos
+
+$AguasClarass= array('N5:P37','N41:P73','N77:P109','AF5:AG99','AF103:AG134');
+$TAguasClarass= array('N5:P6','N41:P42','N77:P78','AF5:AG6');//Títulos
+
+$F25Bts= array('Q5:Q37','Q41:Q73','Q77:Q109');
+$QT7s= array('R5:R37','R41:R73','R77:R109');
+$QT6s= array('S5:S37','S41:S73','S77:S109');
+$QT5s= array('T5:T37','T41:T73','T77:T109');
+$QESIs= array('U5:U37','U41:U73','U77:U109');
 
 foreach ($Tudos as $Tudo){
     $spreadsheet->getActiveSheet()->getStyle($Tudo)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);//Orientação Horizontal
@@ -192,53 +202,78 @@ foreach ($Titulos as $Titulo){
     $spreadsheet->getActiveSheet()->getStyle($Titulo)->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Baixo
 }
 
+foreach ($Celulas as $Celula){
+    $spreadsheet->getActiveSheet()->getStyle($Celula)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER_00);
+}
+
 foreach ($Datas as $Data){
-    
+    $spreadsheet->getActiveSheet()->getStyle($Data)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);//Textura da Célula
+    $spreadsheet->getActiveSheet()->getStyle($Data)->getFill()->getStartColor()->setARGB('FFFF0000');//Cor da Célula
 }
 
 foreach ($Jaguaris as $Jaguari){
     $spreadsheet->getActiveSheet()->getStyle($Jaguari)->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKBLUE);//Cor da Fonte
-    $spreadsheet->getActiveSheet()->getStyle($Jaguari)->getFill()->getStartColor()->setARGB('FFFF0000');//Cor da Célula
     $spreadsheet->getActiveSheet()->getStyle($Jaguari)->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Cima
     $spreadsheet->getActiveSheet()->getStyle($Jaguari)->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Baixo
     $spreadsheet->getActiveSheet()->getStyle($Jaguari)->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Esquerda
     $spreadsheet->getActiveSheet()->getStyle($Jaguari)->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Direita
 }
 
+foreach ($TJaguaris as $TJaguari){
+    $spreadsheet->getActiveSheet()->getStyle($TJaguari)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);//Textura da Célula
+    $spreadsheet->getActiveSheet()->getStyle($TJaguari)->getFill()->getStartColor()->setARGB('FFFF0000');//Cor da Célula
+}
+
 foreach ($Cachoeiras as $Cachoeira){
     $spreadsheet->getActiveSheet()->getStyle($Cachoeira)->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKRED);//Cor da Fonte
-    $spreadsheet->getActiveSheet()->getStyle($Cachoeira)->getFill()->getStartColor()->setARGB('FFFF0000');//Cor da Célula
     $spreadsheet->getActiveSheet()->getStyle($Cachoeira)->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Cima
     $spreadsheet->getActiveSheet()->getStyle($Cachoeira)->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Baixo
     $spreadsheet->getActiveSheet()->getStyle($Cachoeira)->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Esquerda
     $spreadsheet->getActiveSheet()->getStyle($Cachoeira)->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Direita
 }
 
+foreach ($TCachoeiras as $TCachoeira){
+    $spreadsheet->getActiveSheet()->getStyle($TCachoeira)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);//Textura da Célula
+    $spreadsheet->getActiveSheet()->getStyle($TCachoeira)->getFill()->getStartColor()->setARGB('FFFF0000');//Cor da Célula
+}
+
 foreach ($Atibainhas as $Atibainha){
     $spreadsheet->getActiveSheet()->getStyle($Atibainha)->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN);//Cor da Fonte
-    $spreadsheet->getActiveSheet()->getStyle($Atibainha)->getFill()->getStartColor()->setARGB('FFFF0000');//Cor da Célula
     $spreadsheet->getActiveSheet()->getStyle($Atibainha)->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Cima
     $spreadsheet->getActiveSheet()->getStyle($Atibainha)->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Baixo
     $spreadsheet->getActiveSheet()->getStyle($Atibainha)->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Esquerda
     $spreadsheet->getActiveSheet()->getStyle($Atibainha)->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Direita
 }
 
+foreach ($TAtibainhas as $TAtibainha){
+    $spreadsheet->getActiveSheet()->getStyle($TAtibainha)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);//Textura da Célula
+    $spreadsheet->getActiveSheet()->getStyle($TAtibainha)->getFill()->getStartColor()->setARGB('FFFF0000');//Cor da Célula
+}
+
 foreach ($PaivaCastros as $PaivaCastro){
     $spreadsheet->getActiveSheet()->getStyle($PaivaCastro)->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKYELLOW);//Cor da Fonte
-    $spreadsheet->getActiveSheet()->getStyle($PaivaCastro)->getFill()->getStartColor()->setARGB('FFFF0000');//Cor da Célula
     $spreadsheet->getActiveSheet()->getStyle($PaivaCastro)->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Cima
     $spreadsheet->getActiveSheet()->getStyle($PaivaCastro)->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Baixo
     $spreadsheet->getActiveSheet()->getStyle($PaivaCastro)->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Esquerda
     $spreadsheet->getActiveSheet()->getStyle($PaivaCastro)->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Direita
 }
 
+foreach ($TPaivaCastros as $TPaivaCastro){
+    $spreadsheet->getActiveSheet()->getStyle($TPaivaCastro)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);//Textura da Célula
+    $spreadsheet->getActiveSheet()->getStyle($TPaivaCastro)->getFill()->getStartColor()->setARGB('FFFF0000');//Cor da Célula
+}
+
 foreach ($AguasClarass as $AguasClaras){
     //$spreadsheet->getActiveSheet()->getStyle($AguasClaras)->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKMAGENTA);//Cor da Fonte
-    //$spreadsheet->getActiveSheet()->getStyle($AguasClaras)->getFill()->getStartColor()->setARGB('FFFF0000');//Cor da Célula
     $spreadsheet->getActiveSheet()->getStyle($AguasClaras)->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Cima
     $spreadsheet->getActiveSheet()->getStyle($AguasClaras)->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Baixo
     $spreadsheet->getActiveSheet()->getStyle($AguasClaras)->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Esquerda
     $spreadsheet->getActiveSheet()->getStyle($AguasClaras)->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Direita
+}
+
+foreach ($TAguasClarass as $TAguasClaras){
+    $spreadsheet->getActiveSheet()->getStyle($TAguasClaras)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);//Textura da Célula
+    //$spreadsheet->getActiveSheet()->getStyle($TAguasClaras)->getFill()->getStartColor()->setARGB('FFFF0000');//Cor da Célula
 }
 
 foreach ($F25Bts as $F25Bt){
@@ -296,28 +331,33 @@ $spreadsheet->getActiveSheet()//Menu da Estatística
     ->setCellValue('AF5','Águas Claras')->mergeCells('AF5:AG5')
     ->fromArray($Est_Nomen,NULL,'X6');
 
-$Est_Locais= array('X5:Y99','Z5:AA99','AB5:AC99','AD5:AE99','AF5:AG99','X5:AG6');
+/*$Est_Locais= array('X5:Y99','Z5:AA99','AB5:AC99','AD5:AE99','AF5:AG99','X5:AG6');
 foreach ($Est_Locais as $Est_Local){
     $spreadsheet->getActiveSheet()->getStyle($Est_Local)->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Cima
     $spreadsheet->getActiveSheet()->getStyle($Est_Local)->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Baixo
     $spreadsheet->getActiveSheet()->getStyle($Est_Local)->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Esquerda
     $spreadsheet->getActiveSheet()->getStyle($Est_Local)->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Direita
 }   $spreadsheet->getActiveSheet()->getStyle('X5:AG5')->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Baixo
-
-function NA($NA_Represas, $Local, $spreadsheet){
-    foreach ($NA_Represas as $NA_Represa){
-        $rol= $spreadsheet->getActiveSheet()->rangeToArray($NA_Represa);
-        //$Rol[].= array($rol);
+*/
+function NA($NA_Represas, $Local1, $Local2, $spreadsheet){
+    $Rol = array();
+        foreach ($NA_Represas as $NA_Represa){
+            $rol= $spreadsheet->getActiveSheet()->rangeToArray($NA_Represa);
+            $Rol = array_merge($Rol, $rol);
+        }
+        $Rol = array_map('array_filter', $Rol);//Remove elementos vazios
+        $Rol = array_filter($Rol);//de meses que possuem menos de 31 dias
+        $spreadsheet->getActiveSheet()->fromArray($Rol, null, $Local1);
+        //$Rol2 = sort($Rol, SORT_NUMERIC);
+        $spreadsheet->getActiveSheet()->fromArray($Rol, null, $Local2);
     }
-    $spreadsheet->getActiveSheet()->fromArray($rol, null, $Local);
-}
 
-NA($Datas, 'W7', $spreadsheet);
-NA($NA_Jaguaris, 'X7', $spreadsheet);
-NA($NA_Cachoeiras, 'Z7', $spreadsheet);
-NA($NA_Atibainhas, 'AB7', $spreadsheet);
-NA($NA_PaivaCastros, 'AD7', $spreadsheet);
-NA($NA_AguasClarass, 'AF7', $spreadsheet);
+NA($Datas, 'W7', 'W7', $spreadsheet);
+NA($NA_Jaguaris, 'X7', 'Y7', $spreadsheet);
+NA($NA_Cachoeiras, 'Z7', 'AA7', $spreadsheet);
+NA($NA_Atibainhas, 'AB7', 'AC7', $spreadsheet);
+NA($NA_PaivaCastros, 'AD7', 'AE7', $spreadsheet);
+NA($NA_AguasClarass, 'AF7', 'AG7', $spreadsheet);
 
 $E1= array(//Estatísticas Jaguari/Jacareí [0]¹ Linha  [0]² Coluna
     array('X103','X107','X111','X116','X123','X126','X129','X132'),//Texto
@@ -399,6 +439,39 @@ foreach ($borders as $border){
 }
 }
 
+//==RESULTADOS===================================================================================================
+
+//         0     1       2      3      4      5      6      7      8      9      10     11     12     13     14     15     16     17     18
+$R1= array('Y','Y7:Y99','Y100','Y101','Y102','Y105','Y109','Y114','Y116','Y117','Y118','Y119','Y120','Y121','Y124','Y127','Y130','Y133','Y134');
+$R2= array('AA','AA7:AA99','AA100','AA101','AA102','AA105','AA109','AA114','AA116','AA117','AA118','AA119','AA120','AA121','AA124','AA127','AA130','AA133','AA134');
+$R3= array('AC','AC7:AC99','AC100','AC101','AC102','AC105','AC109','AC114','AC116','AC117','AC118','AC119','AC120','AC121','AC124','AC127','AC130','AC133','AC134');
+$R4= array('AE','AE7:AE99','AE100','AE101','AE102','AE105','AE109','AE114','AE116','AE117','AE118','AE119','AE120','AE121','AE124','AE127','AE130','AE133','AE134');
+$R5= array('AG','AG7:AG99','AG100','AG101','AG102','AG105','AG109','AG114','AG116','AG117','AG118','AG119','AG120','AG121','AG124','AG127','AG130','AG133','AG134');
+
+$Rs= array($R1,$R2,$R3,$R4,$R5);
+foreach ($Rs as $R){
+$spreadsheet->getActiveSheet()
+    ->setCellValue($R[2],"=COUNT($R[1])")
+    ->setCellValue($R[3],"=MIN($R[1])")
+    ->setCellValue($R[4],"=MAX($R[1])")
+    ->setCellValue($R[5],"=$R[4]-$R[3]")
+    ->setCellValue($R[6],"=1+3.3*LOG10($R[0]100)")
+    ->setCellValue($R[7],"=$R[5]/$R[6]")
+    ->setCellValue($R[8],"=$R[9]+($R[8]-$R[10])*$R[13]/$R[12]")
+    ->setCellValue($R[9],"=$R[2]/2");
+
+//$spreadsheet->getActiveSheet()->setAutoFilter('Y7:Y99');
+//$spreadsheet->getActiveSheet()->setAutoFilter('AA7:AA99');
+//$spreadsheet->getActiveSheet()->setAutoFilter('AC7:AC99');
+//$spreadsheet->getActiveSheet()->setAutoFilter('AE7:AE99');
+//$spreadsheet->getActiveSheet()->setAutoFilter('AG7:AG99');
+
+$spreadsheet->getActiveSheet()->getStyle($R[3].':'.$R[4])->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);//Cor da Fonte
+}
+
+
+
+
 /*header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header("Content-Disposition: attachment;filename=$Ano.xlsx");
 header('Cache-Control: max-age=0');
@@ -407,7 +480,7 @@ $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx'
 $writer->save('php://output');*/
 
 $writer = new Xlsx($spreadsheet);
-$writer->save("$Ano.xlsx");
+$writer->save("$Tri[0]$Ano.xlsx");
 
 $spreadsheet->disconnectWorksheets();
 unset($spreadsheet);
