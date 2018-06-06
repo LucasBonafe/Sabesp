@@ -107,6 +107,8 @@ $spreadsheet->getProperties()
 
 $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(10.71);
 $spreadsheet->getActiveSheet()->getColumnDimension('W')->setWidth(10.71);
+$spreadsheet->getActiveSheet()->getColumnDimension('AI')->setWidth(2.14);
+$spreadsheet->getActiveSheet()->getColumnDimension('AK')->setWidth(3.00);
 
 $cabecalho= array('NA (m)','Pluv (mm)','Qjus (m3/s)','NA (m)','Pluv (mm)','Qjus (m3/s)','NA (m)','Pluv (mm)','Qjus (m3/s)','NA (m)','Pluv (mm)','Qjus (m3/s)','NA (m)','Pluv (mm)','Qjus (m3/s)');
 $spreadsheet->getActiveSheet()//Tabelas e Cabeçalhos
@@ -165,26 +167,32 @@ foreach ($TiMess as $TiMes){//Tamanho/Orientação dos Títulos Mês
     }
 }
 
-$Tudos= array('A5:U37', 'A41:U73', 'A77:U109','W5:AG99');//Tabela inteira
-$Titulos= array('A5:U6','A41:U42','A77:U78','W5:AG6');//Somente títulos
-$Celulas= array('B7:U37','B43:U73','B79:U109','X7:AG99');//Somente dados
+$Tudos= array('A5:U37', 'A41:U73', 'A77:U109','W5:AG99','AI5:AQ15','AI18:AQ28','AI31:AQ41','AI44:AQ54','AI57:AQ67');//Tabela inteira
+$Titulos= array('A5:U6','A41:U42','A77:U78','W5:AG6','AI5:AL5','AI6:AQ6','AI18:AL18','AI19:AQ19','AI31:AL31','AI32:AQ32','AI44:AL44','AI45:AQ45','AI57:AL57','AI58:AQ58');//Somente títulos
+$Celulas= array('B7:U37','B43:U73','B79:U109','X7:AG99','AJ7:AQ15','AJ20:AQ28','AJ33:AQ41','AJ46:AQ54','AJ59:AQ67');//Somente dados
 
 $Datas= array('A7:A37','A43:A73','A79:A109','W7:W99');
+$CData= 'FFFFFFFF';//Cor RGBA
 
-$Jaguaris= array('B5:D37', 'B41:D73', 'B77:D109','X5:Y99','X103:Y134');
-$TJaguaris= array('B5:D6','B41:D42','B77:D78','X5:Y6');//Títulos
+$Jaguaris= array('B5:D37','B41:D73','B77:D109','X5:Y99','X103:Y105','X107:Y109','X111:Y114','X116:Y121','X123:Y124','X126:Y127','X129:Y130','X132:Y134','AI5:AL5','AI6:AQ14','AM15','AO15','AQ15');
+$TJaguaris= array('B5:D6','B41:D42','B77:D78','X5:Y6','AI5:AL5','AI6:AQ6');//Títulos
+$CJaguari= 'FFFFFFFF';//Cor RGBA
 
-$Cachoeiras= array('E5:G37','E41:G73','E77:G109','Z5:AA99','Z103:AA134');
-$TCachoeiras= array('E5:G6','E41:G42','E77:G78','Z5:AA6');//Títulos
+$Cachoeiras= array('E5:G37','E41:G73','E77:G109','Z5:AA99','Z103:AA105','Z107:AA109','Z111:AA114','Z116:AA121','Z123:AA124','Z126:AA127','Z129:AA130','Z132:AA134','AI18:AL18','AI19:AQ27','AM28','AO28','AQ28');
+$TCachoeiras= array('E5:G6','E41:G42','E77:G78','Z5:AA6','AI18:AL18','AI19:AQ19');//Títulos
+$CCachoeira= 'FFFFFFFF';//Cor RGBA
 
-$Atibainhas= array('H5:J37','H41:J73','H77:J109','AB5:AC99','AB103:AC134');
-$TAtibainhas= array('H5:J6','H41:J42','H77:J78','AB5:AC6');//Títulos
+$Atibainhas= array('H5:J37','H41:J73','H77:J109','AB5:AC99','AB103:AC105','AB107:AC109','AB111:AC114','AB116:AC121','AB123:AC124','AB126:AC127','AB129:AC130','AB132:AC134','AI31:AL31','AI32:AQ40','AM41','AO41','AQ41');
+$TAtibainhas= array('H5:J6','H41:J42','H77:J78','AB5:AC6','AI31:AL31','AI32:AQ32');//Títulos
+$CAtibainha= 'FFFFFFFF';//Cor RGBA
 
-$PaivaCastros= array('K5:M37','K41:M73','K77:M109','AD5:AE99','AD103:AE134');
-$TPaivaCastros= array('K5:M6','K41:M42','K77:M78','AD5:AE6');//Títulos
+$PaivaCastros= array('K5:M37','K41:M73','K77:M109','AD5:AE99','AD103:AE105','AD107:AE109','AD111:AE114','AD116:AE121','AD123:AE124','AD126:AE127','AD129:AE130','AD132:AE134','AI44:AL44','AI45:AQ53','AM54','AO54','AQ54');
+$TPaivaCastros= array('K5:M6','K41:M42','K77:M78','AD5:AE6','AI44:AL44','AI45:AQ45');//Títulos
+$CPaivaCastro= 'FFFFFFFF';//Cor RGBA
 
-$AguasClarass= array('N5:P37','N41:P73','N77:P109','AF5:AG99','AF103:AG134');
-$TAguasClarass= array('N5:P6','N41:P42','N77:P78','AF5:AG6');//Títulos
+$AguasClarass= array('N5:P37','N41:P73','N77:P109','AF5:AG99','AF103:AG105','AF107:AG109','AF111:AG114','AF116:AG121','AF123:AG124','AF126:AG127','AF129:AG130','AF132:AG134','AI57:AL57','AI58:AQ66','AM67','AO67','AQ67');
+$TAguasClarass= array('N5:P6','N41:P42','N77:P78','AF5:AG6','AI57:AL57','AI58:AQ58');//Títulos
+$CAguasClaras= 'FFFFFFFF';//Cor RGBA
 
 $F25Bts= array('Q5:Q37','Q41:Q73','Q77:Q109');
 $QT7s= array('R5:R37','R41:R73','R77:R109');
@@ -208,7 +216,7 @@ foreach ($Celulas as $Celula){
 
 foreach ($Datas as $Data){
     $spreadsheet->getActiveSheet()->getStyle($Data)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);//Textura da Célula
-    $spreadsheet->getActiveSheet()->getStyle($Data)->getFill()->getStartColor()->setARGB('FFFF0000');//Cor da Célula
+    $spreadsheet->getActiveSheet()->getStyle($Data)->getFill()->getStartColor()->setARGB($CData);//Cor da Célula
 }
 
 foreach ($Jaguaris as $Jaguari){
@@ -221,7 +229,7 @@ foreach ($Jaguaris as $Jaguari){
 
 foreach ($TJaguaris as $TJaguari){
     $spreadsheet->getActiveSheet()->getStyle($TJaguari)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);//Textura da Célula
-    $spreadsheet->getActiveSheet()->getStyle($TJaguari)->getFill()->getStartColor()->setARGB('FFFF0000');//Cor da Célula
+    $spreadsheet->getActiveSheet()->getStyle($TJaguari)->getFill()->getStartColor()->setARGB($CJaguari);//Cor da Célula
 }
 
 foreach ($Cachoeiras as $Cachoeira){
@@ -234,7 +242,7 @@ foreach ($Cachoeiras as $Cachoeira){
 
 foreach ($TCachoeiras as $TCachoeira){
     $spreadsheet->getActiveSheet()->getStyle($TCachoeira)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);//Textura da Célula
-    $spreadsheet->getActiveSheet()->getStyle($TCachoeira)->getFill()->getStartColor()->setARGB('FFFF0000');//Cor da Célula
+    $spreadsheet->getActiveSheet()->getStyle($TCachoeira)->getFill()->getStartColor()->setARGB($CCachoeira);//Cor da Célula
 }
 
 foreach ($Atibainhas as $Atibainha){
@@ -247,7 +255,7 @@ foreach ($Atibainhas as $Atibainha){
 
 foreach ($TAtibainhas as $TAtibainha){
     $spreadsheet->getActiveSheet()->getStyle($TAtibainha)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);//Textura da Célula
-    $spreadsheet->getActiveSheet()->getStyle($TAtibainha)->getFill()->getStartColor()->setARGB('FFFF0000');//Cor da Célula
+    $spreadsheet->getActiveSheet()->getStyle($TAtibainha)->getFill()->getStartColor()->setARGB($CAtibainha);//Cor da Célula
 }
 
 foreach ($PaivaCastros as $PaivaCastro){
@@ -260,7 +268,7 @@ foreach ($PaivaCastros as $PaivaCastro){
 
 foreach ($TPaivaCastros as $TPaivaCastro){
     $spreadsheet->getActiveSheet()->getStyle($TPaivaCastro)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);//Textura da Célula
-    $spreadsheet->getActiveSheet()->getStyle($TPaivaCastro)->getFill()->getStartColor()->setARGB('FFFF0000');//Cor da Célula
+    $spreadsheet->getActiveSheet()->getStyle($TPaivaCastro)->getFill()->getStartColor()->setARGB($CPaivaCastro);//Cor da Célula
 }
 
 foreach ($AguasClarass as $AguasClaras){
@@ -273,7 +281,7 @@ foreach ($AguasClarass as $AguasClaras){
 
 foreach ($TAguasClarass as $TAguasClaras){
     $spreadsheet->getActiveSheet()->getStyle($TAguasClaras)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);//Textura da Célula
-    //$spreadsheet->getActiveSheet()->getStyle($TAguasClaras)->getFill()->getStartColor()->setARGB('FFFF0000');//Cor da Célula
+    $spreadsheet->getActiveSheet()->getStyle($TAguasClaras)->getFill()->getStartColor()->setARGB($CAguasClaras);//Cor da Célula
 }
 
 foreach ($F25Bts as $F25Bt){
@@ -364,35 +372,35 @@ $E1= array(//Estatísticas Jaguari/Jacareí [0]¹ Linha  [0]² Coluna
     array('X103','X107','X111','X116','X123','X126','X129','X132'),//Texto
     array('Y104','Y108','Y113','X117:X121','Y123','Y126','Y129','Y132'),//Merge
     array('X105','X109','X114','X124','X127','X130','X133','X134'),//Respostas
-    array('X103:Y105','X107:Y109','X111:Y114','X116:Y121','X123:Y124','X126:Y127','X129:Y130','X132:Y134')//Bordas
+    array('X103:Y105','X107:Y109','X111:Y114','X116:Y121','X123:Y124','X126:Y127','X129:Y130','X132:Y134',$CJaguari)//Bordas e Cor $E[3][8]
 );
 
 $E2= array(//Estatísticas Cachoeira [0]¹ Linha  [0]² Coluna
     array('Z103','Z107','Z111','Z116','Z123','Z126','Z129','Z132'),//Texto
     array('AA104','AA108','AA113','Z117:Z121','AA123','AA126','AA129','AA132'),//Merge
     array('Z105','Z109','Z114','Z124','Z127','Z130','Z133','Z134'),//Respostas
-    array('Z103:AA105','Z107:AA109','Z111:AA114','Z116:AA121','Z123:AA124','Z126:AA127','Z129:AA130','Z132:AA134')//Bordas
+    array('Z103:AA105','Z107:AA109','Z111:AA114','Z116:AA121','Z123:AA124','Z126:AA127','Z129:AA130','Z132:AA134',$CCachoeira)//Bordas e Cor $E[3][8]
 );
 
 $E3= array(//Estatísticas Atibainha [0]¹ Linha  [0]² Coluna
     array('AB103','AB107','AB111','AB116','AB123','AB126','AB129','AB132'),//Texto
     array('AC104','AC108','AC113','AB117:AB121','AC123','AC126','AC129','AC132'),//Merge
     array('AB105','AB109','AB114','AB124','AB127','AB130','AB133','AB134'),//Respostas
-    array('AB103:AC105','AB107:AC109','AB111:AC114','AB116:AC121','AB123:AC124','AB126:AC127','AB129:AC130','AB132:AC134')//Bordas
+    array('AB103:AC105','AB107:AC109','AB111:AC114','AB116:AC121','AB123:AC124','AB126:AC127','AB129:AC130','AB132:AC134',$CAtibainha)//Bordas e Cor $E[3][8]
 );
 
 $E4= array(//Estatísticas Paiva Castro [0]¹ Linha  [0]² Coluna
     array('AD103','AD107','AD111','AD116','AD123','AD126','AD129','AD132'),//Texto
     array('AE104','AE108','AE113','AD117:AD121','AE123','AE126','AE129','AE132'),//Merge
     array('AD105','AD109','AD114','AD124','AD127','AD130','AD133','AD134'),//Respostas
-    array('AD103:AE105','AD107:AE109','AD111:AE114','AD116:AE121','AD123:AE124','AD126:AE127','AD129:AE130','AD132:AE134')//Bordas
+    array('AD103:AE105','AD107:AE109','AD111:AE114','AD116:AE121','AD123:AE124','AD126:AE127','AD129:AE130','AD132:AE134',$CPaivaCastro)//Bordas e Cor $E[3][8]
 );
 
 $E5= array(//Estatísticas Águas Claras [0]¹ Linha  [0]² Coluna
     array('AF103','AF107','AF111','AF116','AF123','AF126','AF129','AF132'),//Texto
     array('AG104','AG108','AG113','AF117:AF121','AG123','AG126','AG129','AG132'),//Merge
     array('AF105','AF109','AF114','AF124','AF127','AF130','AF133','AF134'),//Respostas
-    array('AF103:AG105','AF107:AG109','AF111:AG114','AF116:AG121','AF123:AG124','AF126:AG127','AF129:AG130','AF132:AG134')//Bordas
+    array('AF103:AG105','AF107:AG109','AF111:AG114','AF116:AG121','AF123:AG124','AF126:AG127','AF129:AG130','AF132:AG134',$CAguasClaras)//Bordas e Cor $E[3][8]
 );
 
 $Es= array($E1,$E2,$E3,$E4,$E5);
@@ -428,6 +436,8 @@ foreach ($tits as $tit){
     $spreadsheet->getActiveSheet()->getStyle($tit)->getAlignment()->setWrapText(true);//Quebra de Texto
     $spreadsheet->getActiveSheet()->getStyle($tit)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);//Orientação Horizontal
     $spreadsheet->getActiveSheet()->getStyle($tit)->getFont()->setBold(true);//Negrito
+    $spreadsheet->getActiveSheet()->getStyle($Data)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);//Textura da Célula
+    $spreadsheet->getActiveSheet()->getStyle($Data)->getFill()->getStartColor()->setARGB($E[3][8]);//Cor da Célula
     $spreadsheet->getActiveSheet()->getStyle($tit)->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Baixo
 }   $spreadsheet->getActiveSheet()->getStyle($E[0][3])->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);//Direita
 
@@ -442,12 +452,12 @@ foreach ($borders as $border){
 
 //==RESULTADOS===================================================================================================
 
-//         0     1       2      3      4      5      6      7      8      9      10     11     12     13     14     15     16     17     18
-$R1= array('Y','Y7:Y99','Y100','Y101','Y102','Y105','Y109','Y114','Y116','Y117','Y118','Y119','Y120','Y121','Y124','Y127','Y130','Y133','Y134');
-$R2= array('AA','AA7:AA99','AA100','AA101','AA102','AA105','AA109','AA114','AA116','AA117','AA118','AA119','AA120','AA121','AA124','AA127','AA130','AA133','AA134');
-$R3= array('AC','AC7:AC99','AC100','AC101','AC102','AC105','AC109','AC114','AC116','AC117','AC118','AC119','AC120','AC121','AC124','AC127','AC130','AC133','AC134');
-$R4= array('AE','AE7:AE99','AE100','AE101','AE102','AE105','AE109','AE114','AE116','AE117','AE118','AE119','AE120','AE121','AE124','AE127','AE130','AE133','AE134');
-$R5= array('AG','AG7:AG99','AG100','AG101','AG102','AG105','AG109','AG114','AG116','AG117','AG118','AG119','AG120','AG121','AG124','AG127','AG130','AG133','AG134');
+//          0     1       2      3      4      5      6      7      8      9      10     11     12     13     14     15     16     17     18
+$R1= array('Y','Y7:Y99','Y100','AJ7','AL14','Y105','Y109','Y114','Y116','Y117','Y118','Y119','Y120','Y121','Y124','Y127','Y130','Y133','Y134');
+$R2= array('AA','AA7:AA99','AA100','AJ20','AL27','AA105','AA109','AA114','AA116','AA117','AA118','AA119','AA120','AA121','AA124','AA127','AA130','AA133','AA134');
+$R3= array('AC','AC7:AC99','AC100','AJ33','AL40','AC105','AC109','AC114','AC116','AC117','AC118','AC119','AC120','AC121','AC124','AC127','AC130','AC133','AC134');
+$R4= array('AE','AE7:AE99','AE100','AJ46','AL53','AE105','AE109','AE114','AE116','AE117','AE118','AE119','AE120','AE121','AE124','AE127','AE130','AE133','AE134');
+$R5= array('AG','AG7:AG99','AG100','AJ59','AL66','AG105','AG109','AG114','AG116','AG117','AG118','AG119','AG120','AG121','AG124','AG127','AG130','AG133','AG134');
 
 $Rs= array($R1,$R2,$R3,$R4,$R5);
 foreach ($Rs as $R){
@@ -455,9 +465,9 @@ $spreadsheet->getActiveSheet()
     ->setCellValue($R[2],"=COUNT($R[1])")
     ->setCellValue($R[3],"=MIN($R[1])")
     ->setCellValue($R[4],"=MAX($R[1])")
-    ->setCellValue($R[5],"=$R[4]-$R[3]")
-    ->setCellValue($R[6],"=1+3.3*LOG10($R[0]100)")
-    ->setCellValue($R[7],"=$R[5]/$R[6]")
+    ->setCellValue($R[5],"=$R[4]-$R[3]")//Amplitude de Amostra
+    ->setCellValue($R[6],"=1+3.3*LOG10($R[0]100)")//Número de linhas
+    ->setCellValue($R[7],"=$R[5]/$R[6]")//Amplitude do Intervalo
     ->setCellValue($R[8],"=$R[9]+($R[8]-$R[10])*$R[13]/$R[12]")
     ->setCellValue($R[9],"=$R[2]/2");
 
@@ -466,12 +476,76 @@ $spreadsheet->getActiveSheet()
 //$spreadsheet->getActiveSheet()->setAutoFilter('AC7:AC99');
 //$spreadsheet->getActiveSheet()->setAutoFilter('AE7:AE99');
 //$spreadsheet->getActiveSheet()->setAutoFilter('AG7:AG99');
-
-$spreadsheet->getActiveSheet()->getStyle($R[3].':'.$R[4])->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);//Cor da Fonte
 }
 
+//==FREQUÊNCIA===================================================================================================
 
 
+$F1= array(//      0                  1     2     3     4     5
+    array('Represa Jaguari/Jacareí','AI5','AL5','AI6','AI7','AK7'),
+    array('AJ7','AL7','AJ8','AL8','AJ9','AL9','AJ10','AL10','AJ11','AL11','AJ12','AL12','AJ13','AL13','AJ14'),
+    array('Y114','AM7','AM8','AM9','AM10','AM11','AM12','AM13','AM14','AM15'),
+    array('Y7:Y99')
+);
+
+$F2= array(
+    array('Represa Cachoeira','AI18','AL18','AI19','AI20','AK20'),
+    array('AJ20','AL20','AJ21','AL21','AJ22','AL22','AJ23','AL23','AJ24','AL24','AJ25','AL25','AJ26','AL26','AJ27'),
+    array('AA114','AM20','AM21','AM22','AM23','AM24','AM25','AM26','AM27','AM28'),
+    array('AA7:AA99')
+);
+
+$F3= array(
+    array('Represa Atibainha','AI31','AL31','AI32','AI33','AK33'),
+    array('AJ33','AL33','AJ34','AL34','AJ35','AL35','AJ36','AL36','AJ37','AL37','AJ38','AL38','AJ39','AL39','AJ40'),
+    array('AC114','AM33','AM34','AM35','AM36','AM37','AM38','AM39','AM40','AM41'),
+    array('AC7:AC99')
+);
+
+$F4= array(
+    array('Represa Paiva Castro','AI44','AL44','AI45','AI46','AK46'),
+    array('AJ46','AL46','AJ47','AL47','AJ48','AL48','AJ49','AL49','AJ50','AL50','AJ51','AL51','AJ52','AL52','AJ53'),
+    array('AE114','AM46','AM47','AM48','AM49','AM50','AM51','AM52','AM53','AM54'),
+    array('AE7:AE99')
+);
+
+$F5= array(
+    array('Represa Águas Claras','AI57','AL57','AI58','AI59','AK59'),
+    array('AJ59','AL59','AJ60','AL60','AJ61','AL61','AJ62','AL62','AJ63','AL63','AJ64','AL64','AJ65','AL65','AJ66'),
+    array('AG114','AM59','AM60','AM61','AM62','AM63','AM64','AM65','AM66','AM67'),
+    array('AG7:AG99')
+);
+
+$Ftits= array('i','NA (m)','','','Fi','xm','xm*Fi','Fac',"S'");
+$fnums= range(1,8);
+$Fnums= array_chunk($fnums, 1);
+$fr= array('|- ','|- ','|- ','|- ','|- ','|- ','|- ','|-|');
+$Fr= array_chunk($fr, 1);
+
+$Fs= array($F1,$F2,$F3,$F4,$F5);
+foreach ($Fs as $F){
+$spreadsheet->getActiveSheet()
+    ->setCellValue($F[0][1],$F[0][0])->mergeCells($F[0][1].':'.$F[0][2])
+    ->fromArray($Ftits,NULL,$F[0][3])
+    ->fromArray($Fnums,NULL,$F[0][4])
+    ->fromArray($Fr,NULL,$F[0][5])
+    ->setCellValue($F[1][1],"=".$F[1][0]."+".$F[2][0])
+    ->setCellValue($F[1][2],"=".$F[1][1])
+    ->setCellValue($F[1][3],"=".$F[1][1]."+".$F[2][0])
+    ->setCellValue($F[1][4],"=".$F[1][3])
+    ->setCellValue($F[1][5],"=".$F[1][3]."+".$F[2][0])
+    ->setCellValue($F[1][6],"=".$F[1][5])
+    ->setCellValue($F[1][7],"=".$F[1][5]."+".$F[2][0])
+    ->setCellValue($F[1][8],"=".$F[1][7])
+    ->setCellValue($F[1][9],"=".$F[1][7]."+".$F[2][0])
+    ->setCellValue($F[1][10],"=".$F[1][9])
+    ->setCellValue($F[1][11],"=".$F[1][9]."+".$F[2][0])
+    ->setCellValue($F[1][12],"=".$F[1][11])
+    ->setCellValue($F[1][13],"=".$F[1][11]."+".$F[2][0])
+    ->setCellValue($F[1][14],"=".$F[1][13])//Fim frequências
+    //->setCellValue($F[2][1],"=COUNTIFS($F[3][0];\"<\"&$F[1][1];$F[3][0];\">\"&$F[1][0])")
+    ;
+}
 
 /*header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header("Content-Disposition: attachment;filename=$Tri[0]$Ano.xlsx");
