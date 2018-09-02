@@ -1,5 +1,5 @@
 {
-    "name": ">_/sabesp",
+    "name": "lucasbonafe/sabesp",
     "description": "Gerador de planilha XLSX com base no banco de dados da Sabesp.",
     "keywords": ["estatísca", "sabesp", "moda", "media", "mediana"],
     "type": "project",
