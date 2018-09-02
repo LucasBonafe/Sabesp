@@ -1,5 +1,15 @@
 {
+    "name": "LucasBonafe/Sabesp",
+    "description": "Gerador de planilha XLSX com base no banco de dados da Sabesp.",
+    "keywords": ["estatísca", "sabesp", "moda", "media", "mediana"],
+    "type": "project",
     "require": {
         "phpoffice/phpspreadsheet": "^1.2"
-    }
+    },
+    "authors": [{
+            "name": "Lucas Bonafé",
+            "email": "lucasbonafe@protonmail.com",
+            "homepage": "https://github.com/LucasBonafe",
+            "role": "Developer"
+        }]
 }
